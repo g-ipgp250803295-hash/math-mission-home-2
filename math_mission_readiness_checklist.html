@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Math Mission — Readiness Checklist</title>
+<style>
+:root{--crimson:#45171B;--rose:#A16462;--champagne:#D5BCB5;--cream:#FFF5F0}*{box-sizing:border-box}body{margin:0;background:transparent;font-family:Arial,Helvetica,sans-serif;color:var(--cream)}.panel{position:relative;overflow:hidden;background:var(--crimson);border:1.5px solid var(--champagne);border-radius:22px;padding:clamp(22px,5vw,42px);max-width:800px;margin:0 auto;box-shadow:0 12px 28px #210c1026}.panel:before{content:'✦';position:absolute;right:23px;top:13px;color:var(--champagne);opacity:.55;font-size:28px}.eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--champagne);text-align:center;font-weight:700}h1{font-family:Georgia,'Times New Roman',serif;text-align:center;font-size:clamp(26px,5vw,37px);margin:14px 0 9px;line-height:1.15}.intro{text-align:center;color:#ead8d2;line-height:1.6;font-size:14px;max-width:520px;margin:0 auto 25px}.rule{height:1px;background:linear-gradient(90deg,transparent,var(--champagne),transparent);opacity:.6;margin-bottom:22px}.items{display:grid;gap:12px}.item{display:flex;align-items:flex-start;gap:14px;cursor:pointer;border:1px solid #b78c8a85;background:#62303988;border-radius:13px;padding:16px;transition:background .2s,border-color .2s,transform .2s}.item:hover{background:#744149aa;transform:translateY(-1px)}.item:focus-within{outline:2px solid var(--champagne);outline-offset:2px}.item input{position:absolute;opacity:0;width:1px;height:1px}.tick{display:grid;place-items:center;flex:none;width:26px;height:26px;border:2px solid var(--champagne);border-radius:7px;color:var(--crimson);background:transparent;font-size:18px;font-weight:bold;transition:.2s}.item input:checked+.tick{background:var(--champagne)}.item input:checked+.tick:after{content:'✓'}.item .words{display:grid;gap:5px}.item strong{font-size:15px}.item small{font-size:13px;line-height:1.5;color:#e5cbc5}.progress{margin:22px 0 12px;display:flex;justify-content:space-between;align-items:center;color:var(--champagne);font-size:12px;letter-spacing:.3px}.bar{height:8px;background:#83575a;border-radius:999px;overflow:hidden}.fill{height:100%;width:0;background:linear-gradient(90deg,var(--rose),var(--champagne));border-radius:999px;transition:width .45s ease}.result{text-align:center;min-height:75px;margin-top:17px;display:grid;place-items:center}.waiting{color:#e5cbc5;font-size:13px}.success{display:none;animation:pop .5s ease both}.success .stars{font-size:24px;color:#f3d7a5;letter-spacing:10px}.success h2{font-family:Georgia,'Times New Roman',serif;color:#f4d9bb;margin:5px 0;font-size:25px}.success p{font-size:13px;color:#f5e9e4;margin:6px 0 0}.ready .success{display:block}.ready .waiting{display:none}.footer{text-align:center;color:#d4b7b1;font-size:11px;line-height:1.5;margin-top:14px}.reset{display:block;margin:12px auto 0;background:transparent;color:var(--champagne);border:1px solid #c69f9c;border-radius:999px;padding:9px 20px;font-size:12px;cursor:pointer}.reset:hover{background:#754349}@keyframes pop{0%{transform:scale(.8);opacity:0}65%{transform:scale(1.05)}100%{transform:scale(1);opacity:1}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main class="panel" id="panel">
+<div class="eyebrow">✦ Math Mission · Pre-Mission Check ✦</div>
+<h1>ARE YOU MISSION READY?</h1>
+<p class="intro">Before entering the mission, make sure you have everything you need to think, reason, and solve like a Math Detective.</p>
+<div class="rule"></div>
+<div class="items">
+<label class="item"><input type="checkbox" class="check"><span class="tick" aria-hidden="true"></span><span class="words"><strong>I've reviewed the mission instructions.</strong><small>I know I will explore the briefing and complete three detective missions.</small></span></label>
+<label class="item"><input type="checkbox" class="check"><span class="tick" aria-hidden="true"></span><span class="words"><strong>I'm ready to show my reasoning.</strong><small>I will represent the problem, choose a strategy, and explain my thinking.</small></span></label>
+<label class="item"><input type="checkbox" class="check"><span class="tick" aria-hidden="true"></span><span class="words"><strong>I'm ready to check my answers.</strong><small>I will verify my solution and ask my teacher to review my work.</small></span></label>
+</div>
+<div class="progress"><span>MISSION PREPARATION</span><span id="count" aria-live="polite">0 / 3 COMPLETE</span></div>
+<div class="bar" role="progressbar" aria-label="Readiness progress" aria-valuemin="0" aria-valuemax="3" aria-valuenow="0" id="progress"><div class="fill" id="fill"></div></div>
+<div class="result" aria-live="polite"><div class="waiting">Tick all three boxes to complete your readiness check.</div><div class="success"><div class="stars" aria-hidden="true">✦ ✧ ✦</div><h2>YOU'RE MISSION READY!</h2><p>Excellent, Detective! Continue to the Mission Briefing.</p></div></div>
+<button type="button" class="reset" id="reset">↻ Reset Checklist</button>
+<p class="footer">This checklist helps you prepare. Your teacher will verify your reasoning during each mission.</p>
+</main>
+<script>
+const checks=[...document.querySelectorAll('.check')],panel=document.getElementById('panel'),count=document.getElementById('count'),fill=document.getElementById('fill'),progress=document.getElementById('progress');
+function update(){const n=checks.filter(c=>c.checked).length;count.textContent=`${n} / 3 COMPLETE`;fill.style.width=(n/3*100)+'%';progress.setAttribute('aria-valuenow',n);panel.classList.toggle('ready',n===3)}
+checks.forEach(c=>c.addEventListener('change',update));document.getElementById('reset').addEventListener('click',()=>{checks.forEach(c=>c.checked=false);update()});update();
+</script>
+</body></html>
